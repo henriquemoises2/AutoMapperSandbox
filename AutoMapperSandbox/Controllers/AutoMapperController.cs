@@ -40,5 +40,29 @@ namespace AutoMapperSandbox.Controllers
             return Ok(mappedResult);
         }
 
+        [HttpPost]
+        [Route("AutoMapFruitList")]
+        public ActionResult<FruitListOutput> AutoMapFruitList(IEnumerable<FruitInput> fruitListInput)
+        {
+            var mappedResult = _mapper.Map<FruitListOutput>(fruitListInput);
+            return Ok(mappedResult);
+        }
+
+        [HttpPost]
+        [Route("AutoMapBanana")]
+        public ActionResult<BananaOutput> AutoMapBanana(FruitInput fruitInput)
+        {
+            var mappedResult = _mapper.Map<BananaOutput>(fruitInput);
+            return Ok(mappedResult);
+        }
+
+        [HttpPost]
+        [Route("AutoMapContextObject")]
+        public ActionResult<FruitListOutput> AutoMapContextObject(ContextObjectInput contextInput, [FromQuery] int daysToAdd )
+        {
+            var mappedResult = _mapper.Map<ContextObjectOutput>(contextInput, opts => { opts.Items.Add("ExtraDays", daysToAdd); });
+            return Ok(mappedResult);
+        }
+
     }
 }
